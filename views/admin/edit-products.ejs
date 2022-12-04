@@ -1,0 +1,23 @@
+<%- include("../partials/admin-header")%>
+<section>
+  <div class="contaier m-5">
+    <div class="col-md-6">
+        <form action="/admin/edit-product/{{product._id}}" enctype="multipart/form-data" method="post">
+        <label for="">Name</label>
+        <input type="text" name="Name" class="form-control" value="{{product.Name}}"/>
+        <label for="">Category</label>
+        <input type="text" name="Category" class="form-control" value="{{product.Category}}"/>
+        <label for="">Price</label>
+        <input type="text" name="Price" class="form-control" value="{{product.Price}}"/>
+        <label for="">Description</label>
+        <input type="text" name="Description" class="form-control" value="{{product.Description}}"/>
+        <label for="">Image</label>
+        <img src="/images/{{product._id}}.jpg" alt="" style="width: 100px;height:auto;" id="imgPreview" class="p-3">
+        <input type="file" name="uploadedFile" class="form-control" onchange="viewImage(event)"/>
+       <button type="submit" class="btn btn-success mt-4">Add Product</button>
+    </form>
+    </div>
+
+  </div>
+</section>
+<%- include("../partials/footer")%>
