@@ -3,29 +3,23 @@
 <section class="login-section" style="padding-top:22rem;">
   <div class="login-box">
     <h2>SignUp</h2>
-    <form>
+    <form action="/signup" method="post">
       <div class="user-box">
-        <input type="text" name="" required="">
+        <input type="text" name="Name" required="">
         <label>Name</label>
       </div>
       <div class="user-box">
-        <input type="email" name="" required="">
+        <input type="email" name="Email" required="">
         <label>Email</label>
       </div>
       <div class="user-box">
-        <input type="password" name="" required="">
+        <input type="password" name="Password" required="">
         <label>Password</label>
       </div>
-      <a href="#">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Submit
-      </a>
+      <button class="btn btn-success" type="submit">Submit</button>
     </form>
     <div class="signup-link">
-      <a href="/signup">Already have an account</a>
+      <a href="/login">Already have an account</a>
     </div>
   </div>
 
