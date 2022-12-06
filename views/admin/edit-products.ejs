@@ -1,18 +1,18 @@
 <%- include("../partials/admin-header")%>
 <section>
   <div class="contaier m-5">
-    <div class="col-md-6">
-        <form action="/admin/edit-product/{{product._id}}" enctype="multipart/form-data" method="post">
+    <div class="add-product">
+        <form class="admin-add-product" action="/admin/edit-product/<%=productDetails._id%>" enctype="multipart/form-data" method="post">
         <label for="">Name</label>
-        <input type="text" name="Name" class="form-control" value="{{product.Name}}"/>
+        <input type="text" name="Name" class="form-control" value="<%=productDetails.name%>"/>
         <label for="">Category</label>
-        <input type="text" name="Category" class="form-control" value="{{product.Category}}"/>
+        <input type="text" name="Category" class="form-control" value="<%=productDetails.category%>"/>
         <label for="">Price</label>
-        <input type="text" name="Price" class="form-control" value="{{product.Price}}"/>
+        <input type="text" name="Price" class="form-control" value="<%=productDetails.price%>"/>
         <label for="">Description</label>
-        <input type="text" name="Description" class="form-control" value="{{product.Description}}"/>
+        <input type="text" name="Description" class="form-control" value="<%=productDetails.description%>"/>
         <label for="">Image</label>
-        <img src="/images/{{product._id}}.jpg" alt="" style="width: 100px;height:auto;" id="imgPreview" class="p-3">
+        <img src="/images/<%=productDetails._id%>.jpeg" alt="..." style="width: 100px;height:auto;" id="imgPreview" class="p-3">
         <input type="file" name="uploadedFile" class="form-control" onchange="viewImage(event)"/>
        <button type="submit" class="btn btn-success mt-4">Add Product</button>
     </form>

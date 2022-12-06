@@ -58,3 +58,8 @@ var decrementQty = minusBtn.click(function() {
 	}
 	update_amounts();
 });
+
+
+function viewImage (event){
+    document.getElementById("imgPreview").src=URL.createObjectURL(event.target.files[0])
+}
