@@ -34,7 +34,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link header-link " aria-current="page" href="/cart">Cart</a>
+            <a class="nav-link header-link " aria-current="page" href="/cart">Cart<span class="badge badge-danger"><%=cartCount%></span></a>
           </li>
           <%  if(user){ %>
           <li class="nav-item">
@@ -121,23 +121,23 @@
 <section>
   <div class="cards-section container mt-5">
     <div class="row">
+    <%  products.forEach(function(product){ %>
       <div class="col-md-3">
-        <img class="card-image"  src="https://rukminim1.flixcart.com/image/300/300/kzd147k0/mobile/m/c/f/-original-imagbe5qknarjywp.jpeg?q=90" class="card-img-top" alt="..." />
+        <img class="card-image card-img-top" src="/images/<%=product._id%>.jpeg" alt="..."/>
         <div class="card">
-
           <div class="card-body">
-            <h5 class="card-title">vivo T1 5G (Rainbow Fantasy, 128 GB) (6 GB RAM)</h5>
-            <p class="card-text">
-              4.41,51,679 Ratings&8,993 Reviews <br>
-              <b>₹12,999</b> 13% off <br>
-              4 GB RAM | 128 GB ROM | Expandable Upto 1 TB <br>
-              16.76 cm (6.6 inch) Full HD+ Display <br>
-              50MP + 2MP + 0.3MP | 8MP Front Camera
-            </p>
-            <button  onclick="addToCart()" class="btn btn-success">Add to cart</button>
+            <h5 class="card-title"><%=product.name%></h5>
+            <h6><%=product.category%></h6>
+            <h6><%=product.price%></h6>
+            <p class="card-text"><%=product.description%></p>
+            <form class="" action="/add-to-cart/<%=product._id%>" method="post">
+              <button type="submit" class="btn btn-success">Add to cart</button>
+            </form>
+
           </div>
         </div>
       </div>
+    <%  }) %>
     </div>
   </div>
 </section>
@@ -145,6 +145,7 @@
 <section class="section">
 
 </section>
+
 
 
 <%- include("partials/footer")%>

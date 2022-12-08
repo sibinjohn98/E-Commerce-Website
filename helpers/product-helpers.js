@@ -9,7 +9,7 @@ const productSchema=new mongoose.Schema({
 })
 
 const Product=new mongoose.model("product",productSchema)
-
+module.exports=Product;
 module.exports={
   addProduct:(product,response)=>{
     const newProduct=new Product({

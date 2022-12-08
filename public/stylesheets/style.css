@@ -363,3 +363,7 @@ button:focus,
 .add-product{
   padding: 5rem;
 }
+.cart-home-link{
+  margin-left: 8rem;
+  text-decoration: none;
+}
