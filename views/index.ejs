@@ -15,7 +15,7 @@
 
 
 
-    <form class="d-flex">
+    <form class="">
       <div class="input-group search">
         <input type="text" class="form-control" placeholder="Search for...">
         <span class="input-group-btn">
@@ -67,9 +67,9 @@
 
 </header>
 
-<div class="section-two">
+<!-- <div class="section-two">
   <h2>Best Deals On Mobile Phones and Accessories Here!</h2>
-</div>
+</div> -->
 
 
 
@@ -118,11 +118,11 @@
 
 </section>
 
-<section>
-  <div class="cards-section container mt-5">
+<section style="background-color:#344D67;margin-top:-3rem;">
+  <div class="cards-section mt-5">
     <div class="row">
     <%  products.forEach(function(product){ %>
-      <div class="col-md-3">
+      <div class="product-card col-md-3">
         <img class="card-image card-img-top" src="/images/<%=product._id%>.jpeg" alt="..."/>
         <div class="card">
           <div class="card-body">
@@ -131,7 +131,7 @@
             <h6><%=product.price%></h6>
             <p class="card-text"><%=product.description%></p>
             <form class="" action="/add-to-cart/<%=product._id%>" method="post">
-              <button type="submit" class="btn btn-success">Add to cart</button>
+              <button type="submit" class="btn btn-success" onclick="addToCart(<%=product._id%>)">Add to cart</button>
             </form>
 
           </div>
@@ -142,8 +142,8 @@
   </div>
 </section>
 
-<section class="section">
-
+<section class="section" style="background-color:white;">
+  <h1>section to be added</h1>
 </section>
 
 

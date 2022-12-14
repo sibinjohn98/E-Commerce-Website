@@ -1,5 +1,5 @@
 body {
-  background-color: #E8F3D6;
+  /* background-color: #344D67; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -25,17 +25,18 @@ a{
 }
 .navbar{
   background-color: #344D67;
-  padding: 3rem ;
+  padding: 2rem ;
   /* padding-bottom: 1rem; */
   text-align: center;
 
 }
+
 .search{
   margin-left: 10rem;
   margin-right: 2rem;
 }
  .nav-links{
-
+  margin-left: 12rem;
   padding-left: 3rem;
   padding-right: 3rem
 }
@@ -62,8 +63,8 @@ a{
 }
 
 #testimonials{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  /* padding-top: 2rem; */
+  /* padding-bottom: 2rem; */
   background-color: #FEFCF3;
   text-align: center;
 }
@@ -92,20 +93,28 @@ a{
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23c593d8' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
 }
 .cards-section{
+  text-align: center;
   color: #fff;
-  margin: 5rem;
+  background-color:#344D67;
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+.product-card{
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 .card-image{
+  margin-right: 7rem;
   width: 6rem;
   height: 12rem;
-  margin-left:3.6rem;
 }
 .card{
   width: 15rem;
-
+  color: #fff;
   --bs-card-bg:#344D67;
   --bs-card-border-color:#344D67;
 }
+
 .footer-section{
   background-color: #344D67;
   color: #fff;
@@ -113,6 +122,7 @@ a{
   text-align: left;
 }
 .footer-col{
+  color: white;
   padding-top: 1rem;
   padding-right: 5rem;
 }
@@ -366,4 +376,134 @@ button:focus,
 .cart-home-link{
   margin-left: 8rem;
   text-decoration: none;
+}
+
+/* place order page */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+.container{
+  background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #262626;
+  margin: 5% 0;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 1200px)
+{
+  .container{
+    max-width: 1140px;
+  }
+}
+.d-flex{
+  display: flex;
+  flex-direction: row;
+  border-radius: 0 0 5px 5px;
+  padding: 5rem;
+}
+form.place-order{
+  flex: 4;
+  margin: 1rem 5rem;
+}
+.Yorder{
+  flex: 2;
+  padding: 4rem;
+}
+.pay-method{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.title{
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
+  background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+  background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+  background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+  background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
+  border-radius:5px 5px 0 0 ;
+  padding: 20px;
+  color: #f6f6f6;
+}
+h2.place-order{
+  margin: 0;
+  padding-left: 15px;
+}
+.required{
+  color: red;
+}
+label.place-order, table{
+  display: block;
+  margin: 15px;
+}
+label.place-order>span{
+  float: left;
+  width: 25%;
+  margin-top: 12px;
+  padding-right: 10px;
+}
+input[type="text"], input[type="tel"], input[type="email"], select
+{
+  width: 70%;
+  height: 30px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dadada;
+  color: #888;
+}
+select{
+  width: 72%;
+  height: 45px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.Yorder{
+  margin-top: 15px;
+  height: 600px;
+  padding: 20px;
+  border: 1px solid #dadada;
+}
+
+th.place-order{
+  border-bottom: 1px solid #dadada;
+  padding: 10px 0;
+}
+tr.place-order>td:nth-child(1){
+  text-align: left;
+  color: #2d2d2a;
+}
+tr.place-order>td:nth-child(2){
+  text-align: right;
+  color: #52ad9c;
+}
+td.place-order{
+  border-bottom: 1px solid #dadada;
+  padding: 25px 25px 25px 0;
+}
+
+p.place-order{
+  display: block;
+  color: #888;
+  margin: 0;
+  padding-left: 25px;
+}
+.Yorder>div{
+  padding: 15px 0;
+}
+
+a.place-order{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background: #52ad9c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
+a.place-order:hover{
+  cursor: pointer;
+  background: #428a7d;
 }

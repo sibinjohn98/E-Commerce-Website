@@ -18,8 +18,34 @@ const cartSchema=new mongoose.Schema({
   user:String,
   products:[productsSchema]
 })
+const addressSchema=new mongoose.Schema({
+fname:    String,
+lname:    String,
+houseadd: String,
+city:     String,
+state:    String,
+postcode: String,
+phone:    String,
+mail:     String
+})
+const orderedProducts=new mongoose.Schema({
+ProductId: String,
+name:String,
+description:String,
+price: String,
+quantity: Number,
+paymentMethod:String,
+status:String,
+date:String
+})
+const orderSchema=new mongoose.Schema({
+  user:String,
+  deliveryDetails:addressSchema,
+  products:[orderedProducts],
+})
 const User =new mongoose.model("user",userSchema)
 const Cart=new mongoose.model("cart",cartSchema)
+const Order=new mongoose.model("order",orderSchema)
 
 
 module.exports={
@@ -104,6 +130,7 @@ module.exports={
       const cartItems=[];
        Cart.findOne({user:userId},function(err,foundCart){
          let productCount=foundCart.products.length
+         if(foundCart.products.length!==0){
          foundCart.products.forEach(async function(product){
            const productDetails=await productHelpers.getProductDetails(product.item)
            cartItems.push({
@@ -115,14 +142,13 @@ module.exports={
              description:productDetails.description,
              quantity:product.quantity
            })
-           if(productCount!==0){
            if(cartItems.length==productCount){
              resolve(cartItems)
            }
-         }else{
-           resolve(0)
-         }
          })
+       }else{
+         resolve(null)
+       }
       })
 
       })
@@ -140,6 +166,7 @@ module.exports={
   },
   removeCartItem:(userId,productId)=>{
     return new Promise((resolve,reject)=>{
+    let cart=Cart.findOne({user:userId})
     Cart.findOneAndUpdate({ user:userId },
     { $pull: { products: { item: productId} } },
     { new: true },
@@ -148,7 +175,7 @@ module.exports={
          console.log(err)
       }
     }).clone().then((response)=>{
-        resolve()
+        resolve(response)
       })
     })
   },
@@ -160,6 +187,79 @@ module.exports={
         count=cart.products.length
       }
       resolve(count)
+    })
+  },
+  placeOrder:(userDetails,productDetails)=>{
+    return new Promise((resolve,reject)=>{
+      Order.findOne({user:userDetails.userId},function(err,orderExist){
+        if(orderExist){
+          let status=userDetails.paymentMethod==="COD"?"placed":"pending"
+          let products=[]
+          productDetails.forEach(function(product){
+            let pro={
+              productId:objectId(product.id),
+              name:product.name,
+              description:product.description,
+              price:product.price,
+              quantity:product.quantity,
+              paymentMethod:userDetails.paymentMethod,
+              status:status,
+              date:new Date()
+            }
+            products.push(pro)
+          })
+          Order.updateOne({user:userDetails.userId},
+          {
+            $push:{products:products}
+
+          },function(err){
+            resolve(status)
+            Cart.deleteOne({user:userDetails.userId},function(err){})
+          })
+
+        }else{
+          let status=userDetails.paymentMethod==="COD"?"placed":"pending"
+          let products=[]
+          productDetails.forEach(function(product){
+            let pro={
+              productId:objectId(product.id),
+              name:product.name,
+              description:product.description,
+              price:product.price,
+              quantity:product.quantity,
+              paymentMethod:userDetails.paymentMethod,
+              status:status,
+              date:new Date()
+            }
+            products.push(pro)
+          })
+          const order=new Order({
+            user:userDetails.userId,
+            deliveryDetails:{
+              fname: userDetails.fname,
+              lname: userDetails.lname,
+              houseadd: userDetails.houseadd,
+              city: userDetails.city,
+              state: userDetails.state,
+              postcode: userDetails.postcode,
+              phone: userDetails.phone,
+              mail: userDetails.mail,
+            },
+            products:products,
+          })
+          order.save(function(err,data){
+            resolve(status)
+            Cart.deleteOne({user:userDetails.userId},function(err){})
+          })
+        }
+      })
+    })
+  },
+  getOrderedProducts:(userId)=>{
+    return new Promise((resolve,reject)=>{
+      Order.findOne({user:userId},function(err,foundOrder){
+        resolve(foundOrder)
+      })
     })
   }
 }

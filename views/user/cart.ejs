@@ -22,18 +22,22 @@
                 <th class="text-right"><span id="amount" class="amount">Description</span> </th>
               </tr>
             </thead>
-          <%  let totalPrice=0 %>
+          <%  if(products){ %>
 
+          <%  let totalPrice=0 %>
+          <%  let userId="" %>
             <tbody>
               <%  products.forEach(function(product) { %>
               <%  product.price= parseInt(product.price) %>
               <%  product.quantity=parseInt(product.quantity) %>
               <% let productTotal=product.price*product.quantity %>
               <%  totalPrice+= productTotal %>
+              <%  userId=product.user %>
+                <div class="">
                 <tr>
                   <td>
-                    <div class="product-img">
-                      <div class="img-prdct"><img src="/images/<%=product.id%>.jpeg"></div>
+                    <div class="product-img p-2 m-2">
+                      <div class="img-prdct"><img style="width:4rem;height:5rem" src="/images/<%=product.id%>.jpeg"></div>
                     </div>
                   </td>
                   <td>
@@ -69,12 +73,20 @@
                     <a href="/orders" class="btn btn-success btn-sm">Buy Now</a>
                   </td>
                 </tr>
+                </div>
                 <%  }) %>
             </tbody>
             <tfoot>
               <tr>
                 <td colspan="3"></td>
-                <td align=""><strong>TOTAL =  <span id="total" class="total"><%=totalPrice%> $</span></strong></td>
+                <td><strong>TOTAL =  <span id="total" class="total"><%=totalPrice%> $</span></strong></td>
+              </tr>
+
+              <tr>
+                <td colspan="3"></td>
+                <td><a class="btn btn-success" href="/place-order/<%=userId%>">Place Order</a></td>
+                  <% } %>
+              <%  } %>
               </tr>
             </tfoot>
 
@@ -83,6 +95,6 @@
       </div>
     </div>
   </div>
-<% } %>
+
 </section>
 <%- include("../partials/footer")%>

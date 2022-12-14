@@ -1,0 +1,41 @@
+<%- include("../partials/user-header") %>
+<section style="text-align:center; background-color:white;">
+  <div class="container">
+    <div class="">
+      <a href="/" class="btn btn-primary btn-sm" style="margin-right:66rem;">Home</a>
+      <h1>Orders</h1>
+    </div>
+      <div class="row">
+          <div class="col-md-12">
+              <table class="table">
+                  <tr class="table-header">
+                      <th class="cell">S.no</th>
+                      <th class="cell">Product Name</th>
+                      <th class="cell">Details</th>
+                      <th class="cell">Price X Quantity</th>
+                      <th class="cell">Order Status</th>
+                      <th class="cell">Ordered Date</th>
+                      <th class="cell">payment Method</th>
+                  </tr>
+                <%  let orderedProducts=order.products %>
+                <%    let slNo=1 %>
+                <%  orderedProducts.forEach(function(product){ %>
+
+                  <tr  class="active">
+                      <td><%=slNo%></td>
+                      <td><%=product.name%></td>
+                      <td><%=product.description%></td>
+                      <td><%=product.price%> X <%=product.quantity%></td>
+                      <td><%=product.status%></td>
+                      <td><%=product.date%></td>
+                      <td><%=product.paymentMethod%></td>
+                      <td><a href="/order-details" class="btn btn-primary btn-sm">View Details</a></td>
+                  </tr>
+                <%    slNo+=1 %>
+                <%  }) %>
+              </table>
+          </div>
+      </div>
+  </div>
+</section>
+<%- include("../partials/footer") %>

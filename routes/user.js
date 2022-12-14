@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const productHelpers = require("../helpers/product-helpers")
 const userHelpers = require("../helpers/user-helpers")
+const verifyLogin = (req,res,next)=>{
+  if(req.session.loggedIn){
+    next()
+  }else{
+    res.redirect("/login")
+  }
+}
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -59,18 +66,16 @@ router.get("/logout",function(req,res){
   res.redirect("/")
 })
 
-router.get("/cart",async function(req,res,next){
-  let products=await userHelpers.getCartProducts(req.session.user._id)
-  let cartCount=await userHelpers.getCartCount(req.session.user._id)
-  if(cartCount===0){
-    res.render("user/cart",{cartEmpty:true})
-  }else{
-    res.render("user/cart",{cartEmpty:false,products})
-  }
-
+router.get("/cart",verifyLogin,async function(req,res){
+  let products= await userHelpers.getCartProducts(req.session.user._id)
+  if(products){
+  res.render("user/cart",{cartEmpty:false,products})
+}else{
+  res.render("user/cart",{cartEmpty:true})
+}
 })
 
-router.post("/add-to-cart/:productId",function(req,res){
+router.post("/add-to-cart/:productId",verifyLogin,function(req,res){
   userHelpers.addToCart(req.params.productId,req.session.user._id).then((response)=>{
     res.redirect("/")
   })
@@ -84,8 +89,34 @@ router.post("/change-product-quantity/:userId/:productId",function(req,res){
 
 router.get("/remove-cart-item/:userId/:productId",function(req,res){
   userHelpers.removeCartItem(req.params.userId,req.params.productId).then((response)=>{
-    res.redirect("/cart")
+    if(response.products.length==0){
+      res.render("user/cart",{cartEmpty:true})
+    }else{
+      res.redirect("/cart")
+    }
   })
 })
 
+router.get("/place-order/:userId",async function(req,res){
+  let userId=req.params.userId
+  let cartProducts=await userHelpers.getCartProducts(userId)
+  res.render("user/place-order",{cartProducts})
+})
+router.get("/payment-gateway/:totalPrice",function(req,res){
+  console.log(req.params.totalPrice);
+})
+
+router.post("/place-order",async function(req,res){
+  let products= await userHelpers.getCartProducts(req.body.userId)
+  userHelpers.placeOrder(req.body,products).then((response)=>{
+    if(response=="placed"){
+      res.render("user/order-success")
+    }
+  })
+})
+
+router.get("/orders",async function(req,res){
+  let order=await userHelpers.getOrderedProducts(req.session.user._id)
+  res.render("user/orders",{order})
+})
 module.exports = router;

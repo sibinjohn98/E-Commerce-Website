@@ -1,0 +1,109 @@
+<%- include("../partials/user-header")%>
+<section>
+<%  let userId=cartProducts[0].user %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="title">
+          <h2 class="place-order-h2">Enter Your Details</h2>
+      </div>
+        <form action="/place-order" method="post">
+            <div class="">
+            <input type="text" name="userId" value="<%=userId%>" hidden>
+            <label class="fname">First Name</label><span class="required">*</span>
+            <input class="place-order"  type="text" name="fname">
+            </div>
+            <div class="">
+            <label class="lname">Last Name</label><span class="required">*</span>
+            <input class="place-order" type="text" name="lname">
+            </div>
+            <div class="">
+            <label>Street Address</label><span class="required">*</span>
+            <input class="place-order"  type="text" name="houseadd" placeholder="House number and street name" required>
+            </div>
+            <div class="">
+            <label>Town / City</label><span class="required">*</span>
+            <input class="place-order" type="text" name="city">
+            </div>
+            <div class="">
+            <label>State / County</label><span class="required">*</span>
+            <input class="place-order" type="text" name="state">
+            </div>
+            <div class="">
+            <label>Postcode / ZIP\</label><span class="required">*</span>
+            <input class="place-order" type="text" name="postcode">
+            </div>
+            <div class="">
+            <span>Phone </span><span class="required">*</span>
+            <input class="place-order" type="tel" name="phone">
+            </div>
+            <div class="">
+            <label>Email Address</label><span class="required">*</span>
+            <input class="place-order" type="email" name="mail">
+            </div>
+          <div class="pay-method">
+            <input class="place-order" id="1"  type="radio" name="paymentMethod" value="online" checked> Pay Online <span>
+            <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="..." width="50">
+            </span>
+          </div>
+          <p class="place-order" >
+              Make your payment online. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+          </p>
+          <div class="pay-method">
+            <input class="place-order" id="2" type="radio" name="paymentMethod" value="COD"> Cash on Delivery
+          </div>
+          <button class="btn btn-success place-order" type="submit" >Place Order</button>
+        </form>
+
+    </div>
+    <div class="col-md-6">
+      <div class="yorder">
+        <table class="place-order" >
+          <tr class="place-order" >
+            <h1 colspan="2">Your order</h1>
+          </tr>
+        <% let totalPrice=0 %>
+        <%  cartProducts.forEach(function(product) { %>
+            <%  product.price= parseInt(product.price) %>
+            <%  product.quantity=parseInt(product.quantity) %>
+            <% let productTotal=product.price*product.quantity %>
+            <%  totalPrice+= productTotal %>
+
+          <tr class="place-order" >
+            <td class="place-order" ><%=product.name%> x <%=product.quantity%>(Qty)</td>
+            <td class="place-order" >$<%=product.price%></td>
+          </tr>
+        <%  }) %>
+          <tr class="place-order" >
+            <td class="place-order" >Subtotal</td>
+            <td class="place-order" >$<%=totalPrice%></td>
+          </tr>
+          <tr class="place-order" >
+            <td class="place-order" >Shipping</td>
+            <td class="place-order" >Free shipping</td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+</section>
+<script>
+  $("#place-order-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:"/place-order",
+      method:"post",
+      data:("#place-order-form").serialize,
+      success:(response)=>{
+        alert(response)
+      }
+    })
+  })
+</script>
+<%- include("../partials/footer")%>
